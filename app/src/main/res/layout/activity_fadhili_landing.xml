@@ -8,7 +8,7 @@
     tools:context=".FadhiliLanding">
 
     <ImageView
-        android:background="#faebd8"
+        android:background="@color/colorPrimary"
         android:alpha="1.0"
         android:id="@+id/bg_image"
         android:layout_width="match_parent"
@@ -37,13 +37,13 @@
         <Button
             android:textStyle="bold"
             android:fontFamily="@font/annie_use_your_telescope"
-            android:id="@+id/lg_signin"
+            android:id="@+id/btnSignIn"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/lg_buttonedit2"
             android:text="Sign in"
             android:textAllCaps="false"
-            android:textColor="#f3b4a0"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
         <Button
             android:textStyle="bold"
             android:fontFamily="@font/annie_use_your_telescope"
-            android:id="@+id/lg_signup"
+            android:id="@+id/btnSignUp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@drawable/lg_buttonedit"

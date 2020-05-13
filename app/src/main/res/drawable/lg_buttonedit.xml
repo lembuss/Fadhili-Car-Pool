@@ -2,5 +2,5 @@
     <corners android:radius="20dp"/>
 <!--    <gradient android:startColor="#faebd8"-->
 <!--        android:endColor="#faebd8"/>-->
-    <solid android:color="#f3b4a0"/>
+    <solid android:color="@color/colorPrimaryDark"/>
 </shape>
