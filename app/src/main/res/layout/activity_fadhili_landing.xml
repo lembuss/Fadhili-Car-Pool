@@ -1,120 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FadhiliLanding">
-
-    <ImageView
-        android:background="@color/colorPrimary"
-        android:alpha="1.0"
-        android:id="@+id/bg_image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+    tools:context=".FadhiliLanding"
+    android:background="@color/colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/txt_layout"
-        android:layout_width="250dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.889">
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/textWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:text="Welcome :)"
+            android:textColor="#000"
+            android:textSize="80sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:gravity="center"
+            android:text="Your local car pool service, don't ride alone"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textWelcome"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textContent"
+            app:srcCompat="@drawable/pink_circle" />
+
+        <TextView
+            android:id="@+id/detailtitleDash1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="48dp"
+            android:drawableStart="@drawable/my_check"
+            android:drawableLeft="@drawable/my_check"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:text="Share the Ride,"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/textContent" />
+
+        <TextView
+            android:id="@+id/detailtitleDash2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/my_check"
+            android:drawableLeft="@drawable/my_check"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:text="Share the costs,"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/detailtitleDash1" />
+
+        <TextView
+            android:id="@+id/detailtitleDash3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/my_check"
+            android:drawableLeft="@drawable/my_check"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:text="Enjoy the Company!!"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/detailtitleDash2" />
 
         <Button
-            android:textStyle="bold"
-            android:fontFamily="@font/annie_use_your_telescope"
             android:id="@+id/btnSignIn"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
             android:background="@drawable/lg_buttonedit2"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:padding="15dp"
             android:text="Sign in"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.156" />
+            app:layout_constraintTop_toBottomOf="@+id/detailtitleDash3" />
 
         <Button
-            android:textStyle="bold"
-            android:fontFamily="@font/annie_use_your_telescope"
             android:id="@+id/btnSignUp"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/lg_buttonedit"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:padding="15dp"
             android:text="Sign up"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.843" />
+            app:layout_constraintTop_toBottomOf="@+id/btnSignIn"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/lg_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:alpha="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.131"
-        app:srcCompat="@drawable/pink_circle" />
-
-    <TextView
-        android:id="@+id/textWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/annie_use_your_telescope"
-        android:text="Welcome :)"
-        android:textColor="#000"
-        android:textSize="80sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.438" />
-
-    <TextView
-        android:id="@+id/textContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/annie_use_your_telescope"
-        android:gravity="end"
-        android:text="Your local car pool service, don't ride alone"
-        android:textAlignment="textEnd"
-        android:textColor="#000"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.611"
-        tools:ignore="HardcodedText" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
