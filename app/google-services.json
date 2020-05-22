@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "756402157724",
+    "firebase_url": "https://fadhili-car-pool.firebaseio.com",
+    "project_id": "fadhili-car-pool",
+    "storage_bucket": "fadhili-car-pool.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756402157724:android:7af519da55fd488c175559",
+        "android_client_info": {
+          "package_name": "com.example.fadhilicarpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756402157724-156skq7k5bqd62d7879vb553ljiqdgsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUgG0b7xm12RGbZEKqyxUMZMtCvGCVOMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756402157724-156skq7k5bqd62d7879vb553ljiqdgsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
