@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topView" />
 
     <EditText
-        android:id="@+id/inputNumber"
+        android:id="@+id/inputMail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -44,10 +44,9 @@
         android:drawablePadding="16dp"
         android:ems="10"
         android:fontFamily="@font/annie_use_your_telescope"
-        android:hint="+254712345678"
-        android:inputType="number"
+        android:hint="abc@example.com"
+        android:inputType="textEmailAddress"
         android:padding="16dp"
-        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/waveView" />
@@ -70,17 +69,15 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="16dp"
-        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/inputMail" />
 
     <TextView
         android:id="@+id/signinTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:drawablePadding="8dp"
         android:fontFamily="@font/annie_use_your_telescope"
         android:text="Sign in"
         android:textColor="@android:color/white"
@@ -115,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Forgotten Password? "

@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FadhiliDashboard"></activity>
-        <activity android:name=".FadhiliRegister" />
-        <activity android:name=".FadhiliSignIn" />
-        <activity android:name=".FadhiliLanding" />
+        <activity android:name=".FadhiliDashboard"/>
+        <activity android:name=".FadhiliRegister"/>
+        <activity android:name=".FadhiliSignIn"/>
+        <activity android:name=".FadhiliLanding"/>
         <activity android:name=".FadhiliSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

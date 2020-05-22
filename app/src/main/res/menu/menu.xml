@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/myHome"
+            android:title="Home"
+            android:icon="@drawable/ic_home"/>
+        <item
+            android:id="@+id/myProfile"
+            android:title="My Profile"
+            android:icon="@drawable/ic_profile"/>
+        <item
+            android:id="@+id/myNotifications"
+            android:title="Notifications"
+            android:icon="@drawable/ic_notifications"/>
+        <item
+            android:id="@+id/myMessages"
+            android:title="Messages"
+            android:icon="@drawable/ic_message"/>
+        <item
+            android:id="@+id/myRides"
+            android:title="Recent Rides"
+            android:icon="@drawable/ic_rides"/>
+        <item
+            android:id="@+id/mySettings"
+            android:title="Settings"
+            android:icon="@drawable/ic_settings"/>
+        <item
+            android:title="Sign Out"
+            android:id="@+id/signOut"
+            app:showAsAction="never"
+            tools:ignore="HardcodedText"
+            android:icon="@drawable/ic_back"/>
+
+    </group>
+</menu>
