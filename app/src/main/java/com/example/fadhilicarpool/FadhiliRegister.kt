@@ -21,7 +21,7 @@ class FadhiliRegister : AppCompatActivity() {
     var myAuth = FirebaseAuth.getInstance()
 
     // Realtime database
-    lateinit var FadhiliUsers : DatabaseReference
+    lateinit var fadhiliUsers : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,7 @@ class FadhiliRegister : AppCompatActivity() {
         var pconfirm = pconfirmTxt.text.toString()
 
         // create a database to hold the user information
-        FadhiliUsers = FirebaseDatabase.getInstance().getReference("Users")
+        fadhiliUsers = FirebaseDatabase.getInstance().getReference("Users")
 
         // check that the inputs are filled
         if (name.isEmpty() or phone.isEmpty() or email.isEmpty() or password.isEmpty() or pconfirm.isEmpty()){
@@ -75,10 +75,10 @@ class FadhiliRegister : AppCompatActivity() {
                         // add info to the database
                         val user = myAuth.currentUser
                         val uid = user!!.uid
-                        FadhiliUsers.child(uid).child("Name").setValue(name)
-                        FadhiliUsers.child(uid).child("Number").setValue(phone)
-                        FadhiliUsers.child(uid).child("Email").setValue(email)
-                        FadhiliUsers.child(uid).child("Password").setValue(password)
+                        fadhiliUsers.child(uid).child("Name").setValue(name)
+                        fadhiliUsers.child(uid).child("Number").setValue(phone)
+                        fadhiliUsers.child(uid).child("Email").setValue(email)
+                        fadhiliUsers.child(uid).child("Password").setValue(password)
 
                         Toast.makeText(this, "Registration Successful", Toast.LENGTH_LONG).show()
 

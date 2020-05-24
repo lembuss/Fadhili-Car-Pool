@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.activity_fadhili_dashboard.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,11 +40,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+
+        cardDrive.setOnClickListener{
+            startActivity(Intent(this, DriverMapActivity:: class.java))
+            Toast.makeText(this, "Offer a ride clicked", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.myHome -> {
+                // return to the dashboard
+                startActivity(Intent(this, MainActivity:: class.java))
                 Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.myProfile -> {
