@@ -1,20 +1,12 @@
 package com.example.fadhilicarpool
 
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.directions.route.Route
-import com.directions.route.RouteException
-import com.directions.route.RoutingListener
-import com.firebase.geofire.GeoFire
-import com.firebase.geofire.GeoLocation
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,33 +15,31 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_driver_map.*
 import java.util.*
 
-open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
+class FadhiliMapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+//    INITIATE THE NECESSARY VARIABLES
     private lateinit var map: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var lastLocation: Location
 
-    //    PERMISSION REQUEST VARIABLE FOR CURRENT LOCATION
+
+//    PERMISSION REQUEST VARIABLE FOR CURRENT LOCATION
     private val REQUEST_LOCATION_PERMISSION = 1
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_driver_map)
+        setContentView(R.layout.activity_fadhili_maps)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // to leave the map area and back to dashboard
-        goBack.setOnClickListener{
-            startActivity(Intent(this, MainActivity:: class.java))
-        }
+//        FUSED LOCATION
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     /**
@@ -81,9 +71,12 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
 //        CALL THE LOCATION ENABLER
         enableMyLocation()
 
+//        ENABLE ZOOM CONTROLS
+        map.uiSettings.isZoomControlsEnabled = true
+        map.setOnMarkerClickListener(this)
     }
 
-    //    ALLOW USER TO SET MARKER WITH LONG PRESS
+//    ALLOW USER TO SET MARKER WITH LONG PRESS
 //    SNIPPET ADDS THE INFO WINDOW
     private fun setMapLongClick(map:GoogleMap){
         map.setOnMapLongClickListener { latLng ->
@@ -104,7 +97,7 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
         }
     }
 
-    //    SET MARKERS AT POINTS OF INTEREST
+//    SET MARKERS AT POINTS OF INTEREST
     private fun setPoiClick(map:GoogleMap){
         map.setOnPoiClickListener { pointOfInterest ->
             val poiMarker = map.addMarker(
@@ -117,14 +110,14 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
 
     }
 
-    //    CHECKING IF PERMISSION IS GRANTED
+//    CHECKING IF PERMISSION IS GRANTED
     private fun isPermissionGranted() : Boolean{
         return ContextCompat.checkSelfPermission(
             this,
-            android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
-    //    ENABLE LOCATION TRACKING
+//    ENABLE LOCATION TRACKING
     private fun enableMyLocation(){
         if (isPermissionGranted()){
             map.isMyLocationEnabled = true
@@ -137,7 +130,7 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
         }
     }
 
-    //    REQUEST FOR PERMISSION ON THE APP
+//    REQUEST FOR PERMISSION ON THE APP
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -148,4 +141,7 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
             }
         }
     }
+
+//    ON MARKER CLICK CALLED WHEN A MARKER IS CLICKED OR TAPPED
+    override fun onMarkerClick(p0: Marker?) = false
 }

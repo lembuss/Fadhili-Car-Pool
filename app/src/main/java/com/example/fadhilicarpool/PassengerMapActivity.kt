@@ -1,14 +1,15 @@
 package com.example.fadhilicarpool
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.directions.route.Route
 import com.directions.route.RouteException
 import com.directions.route.RoutingListener
-import com.firebase.geofire.GeoFire
-import com.firebase.geofire.GeoLocation
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationRequest
@@ -18,25 +19,22 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_driver_map.*
 import kotlinx.android.synthetic.main.activity_driver_map.goBack
-import kotlinx.android.synthetic.main.activity_passenger_map.*
-import java.util.ArrayList
+import java.util.*
 
-open class PassengerMapActivity : AppCompatActivity(), OnMapReadyCallback, RoutingListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+open class PassengerMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
-//    connect to firebase
-    var myAuth = FirebaseAuth.getInstance()
-    lateinit var fadhiliUsers : DatabaseReference
 
-    private lateinit var mMap: GoogleMap
-    lateinit var fGoogleApiClient: GoogleApiClient
-    lateinit var fLastLocation: Location
-    lateinit var fRequestLocation: LocationRequest
+    private lateinit var map: GoogleMap
+
+    //    PERMISSION REQUEST VARIABLE FOR CURRENT LOCATION
+    private val REQUEST_LOCATION_PERMISSION = 1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,77 +60,90 @@ open class PassengerMapActivity : AppCompatActivity(), OnMapReadyCallback, Routi
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        map = googleMap
 
-        buildGoogleApiClient()
-        mMap.isMyLocationEnabled = true
+        // values
+
+        val latitude = -1.3671141
+        val longitude = 36.7601409
+        val zoomLevel = 15f
+
+        val homeLatLng = LatLng(latitude, longitude)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
+        map.addMarker(MarkerOptions().position(homeLatLng))
+
+//        CALL THE ONLONGCLICK METHOD
+        setMapLongClick(map)
+//        CALL THE POI METHOD
+        setPoiClick(map)
+//        CALL THE LOCATION ENABLER
+        enableMyLocation()
     }
 
-    private fun buildGoogleApiClient(){
-        fGoogleApiClient = GoogleApiClient.Builder(this)
-            .addConnectionCallbacks(this)
-            .addOnConnectionFailedListener(this)
-            .addApi(LocationServices.API)
-            .build()
+    //    ALLOW USER TO SET MARKER WITH LONG PRESS
+//    SNIPPET ADDS THE INFO WINDOW
+    private fun setMapLongClick(map:GoogleMap){
+        map.setOnMapLongClickListener { latLng ->
+            val snippet = String.format(
+                Locale.getDefault(),
+                "Lat:%1$.5f, Long %2$.5f",
+                latLng.latitude,
+                latLng.longitude
+            )
 
-        fGoogleApiClient.connect()
-
+            map.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(getString(R.string.dropped_pin))
+                    .snippet(snippet)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+            )
+        }
     }
 
-    override fun onConnected(p0: Bundle?) {
-        // request new location every second
-        fRequestLocation = LocationRequest()
-        fRequestLocation.interval = 1000
-        fRequestLocation.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-
-
-        // necessary for the refreshing nature of the location
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-            fGoogleApiClient,
-            fRequestLocation,
-            this
-        )
-    }
-
-    override fun onConnectionSuspended(p0: Int) {
-
-    }
-
-    override fun onConnectionFailed(p0: ConnectionResult) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onLocationChanged(location: Location?) {
-//      get the location of the user
-        fLastLocation = location!!;
-
-        var latLng: LatLng = LatLng(location.latitude, location.longitude)
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11F))
-
-    }
-
-
-    //    create route
-    private fun createRoute(){
+    //    SET MARKERS AT POINTS OF INTEREST
+    private fun setPoiClick(map:GoogleMap){
+        map.setOnPoiClickListener { pointOfInterest ->
+            val poiMarker = map.addMarker(
+                MarkerOptions()
+                    .position(pointOfInterest.latLng)
+                    .title(pointOfInterest.name)
+            )
+            poiMarker.showInfoWindow()
+        }
 
     }
 
-    // routing implementation
-    override fun onRoutingCancelled() {
-        TODO("Not yet implemented")
+    //    CHECKING IF PERMISSION IS GRANTED
+    private fun isPermissionGranted() : Boolean{
+        return ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun onRoutingStart() {
-        TODO("Not yet implemented")
+    //    ENABLE LOCATION TRACKING
+    private fun enableMyLocation(){
+        if (isPermissionGranted()){
+            map.isMyLocationEnabled = true
+        } else{
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf<String>(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_PERMISSION
+            )
+        }
     }
 
-    override fun onRoutingFailure(p0: RouteException?) {
-        TODO("Not yet implemented")
+    //    REQUEST FOR PERMISSION ON THE APP
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray) {
+        if (requestCode == REQUEST_LOCATION_PERMISSION){
+            if (grantResults.contains(PackageManager.PERMISSION_GRANTED)){
+                enableMyLocation()
+            }
+        }
     }
 
-    override fun onRoutingSuccess(p0: ArrayList<Route>?, p1: Int) {
-        TODO("Not yet implemented")
-    }
 }

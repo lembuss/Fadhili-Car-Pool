@@ -48,6 +48,10 @@ class DashboardFragment : Fragment() {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
         }
+
+        cardMap.setOnClickListener {
+            startActivity(Intent(activity, FadhiliMapsActivity::class.java))
+        }
     }
 
 }
