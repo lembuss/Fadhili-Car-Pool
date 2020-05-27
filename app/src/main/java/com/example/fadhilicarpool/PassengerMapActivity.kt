@@ -103,7 +103,7 @@ open class PassengerMapActivity : AppCompatActivity(), OnMapReadyCallback, Routi
     }
 
     override fun onLocationChanged(location: Location?) {
-
+//      get the location of the user
         fLastLocation = location!!;
 
         var latLng: LatLng = LatLng(location.latitude, location.longitude)

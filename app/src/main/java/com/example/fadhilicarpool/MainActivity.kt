@@ -42,10 +42,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView.setNavigationItemSelectedListener(this)
 
 
+//        driver offer a ride
         cardDrive.setOnClickListener{
             startActivity(Intent(this, DriverMapActivity:: class.java))
             Toast.makeText(this, "Offer a ride clicked", Toast.LENGTH_LONG).show()
         }
+
+//        passenger request a ride
+        cardRide.setOnClickListener{
+            startActivity(Intent(this, PassengerMapActivity:: class.java))
+            Toast.makeText(this, "Find a ride clicked", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -56,7 +64,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.myProfile -> {
+                // open profile page
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, FadhiliProfile::class.java))
             }
             R.id.myNotifications -> {
                 Toast.makeText(this, "Notifications clicked", Toast.LENGTH_SHORT).show()
