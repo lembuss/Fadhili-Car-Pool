@@ -5,16 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_fadhili_dashboard.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    // fragments
+    lateinit var profileFragment: ProfileFragment
+    lateinit var dashboardFragment: DashboardFragment
+    lateinit var notificationFragment: NotificationFragment
+    lateinit var messagesFragment: MessagesFragment
+    lateinit var ridesFragment: RidesFragment
+    lateinit var settingsFragment: SettingsFragment
 
     //    connect to firebase authentication
     var myAuth = FirebaseAuth.getInstance()
@@ -29,7 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         toolbar = findViewById(R.id.main_toolbar)
         setSupportActionBar(toolbar)
-        toolbar.title = null
+//        toolbar.title = null
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
@@ -41,44 +48,72 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
-
-//        driver offer a ride
-        cardDrive.setOnClickListener{
-            startActivity(Intent(this, DriverMapActivity:: class.java))
-            Toast.makeText(this, "Offer a ride clicked", Toast.LENGTH_LONG).show()
-        }
-
-//        passenger request a ride
-        cardRide.setOnClickListener{
-            startActivity(Intent(this, PassengerMapActivity:: class.java))
-            Toast.makeText(this, "Find a ride clicked", Toast.LENGTH_LONG).show()
-        }
+        // default fragment is the dashboard fragment
+        dashboardFragment = DashboardFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, dashboardFragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.myHome -> {
-                // return to the dashboard
-                startActivity(Intent(this, MainActivity:: class.java))
                 Toast.makeText(this, "Home clicked", Toast.LENGTH_SHORT).show()
+                dashboardFragment = DashboardFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, dashboardFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             }
             R.id.myProfile -> {
                 // open profile page
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, FadhiliProfile::class.java))
+                profileFragment = ProfileFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, profileFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             }
             R.id.myNotifications -> {
                 Toast.makeText(this, "Notifications clicked", Toast.LENGTH_SHORT).show()
+                notificationFragment = NotificationFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, notificationFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             }
             R.id.myMessages -> {
                 Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+                messagesFragment = MessagesFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, messagesFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             }
             R.id.myRides -> {
                 Toast.makeText(this, "Recent rides clicked", Toast.LENGTH_SHORT).show()
+                ridesFragment = RidesFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, ridesFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             }
             R.id.mySettings -> {
                 Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+                settingsFragment = SettingsFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, settingsFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
             }
             R.id.signOut -> {
                 myAuth.signOut()
@@ -90,5 +125,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
 
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 }

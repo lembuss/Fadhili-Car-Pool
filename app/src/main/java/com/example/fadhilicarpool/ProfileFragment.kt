@@ -1,30 +1,46 @@
 package com.example.fadhilicarpool
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class FadhiliProfile : AppCompatActivity() {
+class ProfileFragment : Fragment(){
 
     // connect to authentication and realtime database
 
     lateinit var fadhiliUsers : DatabaseReference
-
     var myAuth = FirebaseAuth.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fadhili_profile)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
 
-//        refer to all the user details
-        val nameTxt = findViewById<View>(R.id.userName) as TextView
-        val emailTxt = findViewById<View>(R.id.userEmail) as TextView
-        val phoneTxt = findViewById<View>(R.id.userPhone) as TextView
-        val addressTxt = findViewById<View>(R.id.userAddress) as TextView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        activity!!.title = "My Profile"
+
+        //        refer to all the user details
+        val nameTxt = view.findViewById(R.id.userName) as TextView
+        val emailTxt = view.findViewById(R.id.userEmail) as TextView
+        val phoneTxt = view.findViewById(R.id.userPhone) as TextView
+        val addressTxt = view.findViewById(R.id.userAddress) as TextView
 
 //        target database with data
         fadhiliUsers = FirebaseDatabase.getInstance().getReference("Users")
@@ -70,22 +86,12 @@ class FadhiliProfile : AppCompatActivity() {
                 val result = snapshot.value.toString()
                 phoneTxt.text = result
             }
-
         })
 
-       /* // address
-        fadhiliUsers.child(uid).child("Address").addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                // import user name and display it on landing page
-                val result = snapshot.value.toString()
-                addressTxt.text = result
-            }
-
-        })
-        */
+        /*
+        Add something here for the address
+         */
     }
+
+
 }
