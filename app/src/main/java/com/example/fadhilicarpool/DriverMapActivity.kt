@@ -64,16 +64,6 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        // values
-
-        val latitude = -1.3671141
-        val longitude = 36.7601409
-        val zoomLevel = 15f
-
-        val homeLatLng = LatLng(latitude, longitude)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(homeLatLng, zoomLevel))
-        map.addMarker(MarkerOptions().position(homeLatLng))
-
 //        CALL THE ONLONGCLICK METHOD
         setMapLongClick(map)
 //        CALL THE POI METHOD

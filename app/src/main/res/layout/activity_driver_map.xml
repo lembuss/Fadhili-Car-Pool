@@ -16,52 +16,6 @@
 
     </Button>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <EditText
-            android:background="@drawable/input_border"
-            android:id="@+id/driverFrom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:autofillHints=" "
-            android:hint="From?"
-            android:inputType="text"
-            android:textSize="30sp"
-            map:layout_constraintTop_toTopOf="parent">
-
-        </EditText>
-
-        <EditText
-            android:id="@+id/driverTo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:autofillHints=" "
-            android:background="@drawable/input_border"
-            android:hint="To?"
-            android:inputType="text"
-            android:textSize="30sp"
-            map:layout_constraintTop_toBottomOf="@+id/driverFrom">
-
-        </EditText>
-
-        <Button
-            android:textColor="@android:color/white"
-            android:background="@drawable/lg_buttonedit"
-            android:id="@+id/btnOfferRide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Find A Ride"
-            map:layout_constraintTop_toBottomOf="@+id/driverTo"
-            tools:layout_editor_absoluteX="0dp">
-
-        </Button>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <fragment
         android:id="@+id/map"

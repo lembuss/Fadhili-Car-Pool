@@ -39,7 +39,7 @@ class FadhiliRegister : AppCompatActivity() {
     private fun register(){
 //        progress dialog created
         var progress = ProgressDialog(this)
-        progress.setTitle("Register in Progress")
+        progress.setTitle("Registration in progress")
         progress.setMessage("Getting you set up, please wait..")
 
         // extract and convert inputs from user

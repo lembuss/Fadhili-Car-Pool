@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  */
 class DashboardFragment : Fragment() {
 
-    lateinit var settingsFragment: SettingsFragment
+    lateinit var ridesFragment: RidesFragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +41,10 @@ class DashboardFragment : Fragment() {
         }
 
         cardHistory.setOnClickListener {
-            settingsFragment = SettingsFragment()
+            ridesFragment = RidesFragment()
             fragmentManager!!
                 .beginTransaction()
-                .replace(R.id.fragment_container, settingsFragment)
+                .replace(R.id.fragment_container, ridesFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
         }
