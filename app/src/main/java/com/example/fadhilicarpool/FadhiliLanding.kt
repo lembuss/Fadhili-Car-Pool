@@ -19,10 +19,13 @@ class FadhiliLanding : AppCompatActivity() {
 
         btnSignIn.setOnClickListener {
             startActivity(Intent(this, FadhiliSignIn::class.java))
+            finish()
         }
 
         btnSignUp.setOnClickListener {
             startActivity(Intent(this,  FadhiliRegister:: class.java))
+            finish()
         }
     }
+
 }

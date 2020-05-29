@@ -47,6 +47,7 @@ open class PassengerMapActivity : AppCompatActivity(), OnMapReadyCallback {
         // to leave the map area and back to dashboard
         goBack.setOnClickListener{
             startActivity(Intent(this, MainActivity:: class.java))
+            finish()
         }
     }
 

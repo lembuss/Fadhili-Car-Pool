@@ -12,7 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/goBack"
-        android:text="Go Back">
+        android:text="Go Back"
+        tools:ignore="HardcodedText">
 
     </Button>
 

@@ -52,4 +52,7 @@ dependencies {
     implementation 'com.github.jd-alexander:library:1.1.0'
 //    android maps utils
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+
+//    intents
+    implementation "org.jetbrains.anko:anko-commons:0.10.1"
 }

@@ -29,6 +29,7 @@ class FadhiliRegister : AppCompatActivity() {
 
         textSignIn.setOnClickListener {
             startActivity(Intent(this, FadhiliSignIn:: class.java))
+            finish()
         }
 
         btnRegister.setOnClickListener {
@@ -84,6 +85,7 @@ class FadhiliRegister : AppCompatActivity() {
 
                         // take user back to sign in page
                         startActivity(Intent(this, FadhiliSignIn::class.java))
+                        finish()
                     } else{
                         dialogBox("Error", "Unable to register. Please check credentials")
                         clear()

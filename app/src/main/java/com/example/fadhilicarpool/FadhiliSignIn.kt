@@ -25,6 +25,7 @@ class FadhiliSignIn : AppCompatActivity() {
 //        set click listeners for the buttons
         textSignUp.setOnClickListener {
             startActivity(Intent(this, FadhiliRegister::class.java))
+            finish()
         }
 
         btnSignIn.setOnClickListener {
@@ -60,6 +61,7 @@ class FadhiliSignIn : AppCompatActivity() {
                     progress.dismiss()    // hide progress bar
                     Toast.makeText(this, "Sign in successful", Toast.LENGTH_LONG).show()
                     startActivity(Intent(this, MainActivity:: class.java))
+                    finish()
                 } else{
 //                    display error message
                     dialogBox("Sign In Error","Wrong credentials, please try again")

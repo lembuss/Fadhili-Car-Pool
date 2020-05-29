@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 myAuth.signOut()
                 Toast.makeText(this, "You have been signed out", Toast.LENGTH_LONG).show()
                 startActivity(Intent(this, FadhiliLanding::class.java))
+                finish()
             }
 
         }

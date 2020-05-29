@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
         </androidx.appcompat.widget.Toolbar>
 
         <ImageView
-            android:id="@+id/userImage"
+            android:background="@drawable/image_border"
+            android:id="@+id/editImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="24dp"
@@ -29,20 +31,20 @@
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-            app:srcCompat="@drawable/ic_person" />
+            android:src="@drawable/addimage" />
 
-        <TextView
-            android:id="@+id/userName"
+        <EditText
+            android:hint="user name..."
+            android:id="@+id/editName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/annie_use_your_telescope"
-            android:text="User Name"
             android:textColor="@android:color/black"
             android:textSize="40sp"
-            app:layout_constraintStart_toEndOf="@+id/userImage"
+            app:layout_constraintStart_toEndOf="@+id/editImage"
             app:layout_constraintTop_toBottomOf="@+id/main_toolbar" />
 
         <TextView
@@ -57,16 +59,16 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userImage" />
+            app:layout_constraintTop_toBottomOf="@id/editImage" />
 
-        <TextView
-            android:id="@+id/userEmail"
+        <EditText
+            android:id="@+id/editEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
-            android:text="User Email Goes Here"
+            android:hint="user email goes here..."
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,16 +86,16 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userEmail" />
+            app:layout_constraintTop_toBottomOf="@id/editEmail" />
 
-        <TextView
-            android:id="@+id/userPhone"
+        <EditText
+            android:id="@+id/editPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
-            android:text="User Phone Goes Here"
+            android:hint="user phone goes here..."
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -111,16 +113,16 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userPhone" />
+            app:layout_constraintTop_toBottomOf="@id/editPhone" />
 
-        <TextView
-            android:id="@+id/userAddress"
+        <EditText
+            android:id="@+id/editAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
-            android:text="User Address Goes Here"
+            android:hint="user address goes here..."
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,16 +133,32 @@
             android:fontFamily="@font/annie_use_your_telescope"
             android:textColor="@android:color/white"
             android:background="@drawable/lg_buttonedit"
-            android:id="@+id/userUpdate"
+            android:id="@+id/userSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="32dp"
-            android:text="Update"
+            android:text="Save"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userAddress" />
+            app:layout_constraintTop_toBottomOf="@id/editAddress" />
+
+        <Button
+            android:id="@+id/backProfile"
+            android:textStyle="bold"
+            android:fontFamily="@font/annie_use_your_telescope"
+            android:textColor="@android:color/black"
+            android:background="@drawable/lg_buttonedit"
+            android:text="Back to Profile"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/editAddress"
+            app:layout_constraintStart_toEndOf="@+id/userSave"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
