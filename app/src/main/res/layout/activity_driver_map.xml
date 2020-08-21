@@ -17,6 +17,17 @@
 
     </Button>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:background="@drawable/lg_buttonedit"
+        android:id="@+id/offerRide"
+        android:layout_gravity="bottom"
+        android:text="Offer a Ride">
+
+    </Button>
+
 
     <fragment
         android:id="@+id/map"

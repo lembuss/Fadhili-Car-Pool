@@ -51,6 +51,7 @@ class DashboardFragment : Fragment() {
 
         cardMap.setOnClickListener {
             startActivity(Intent(activity, FadhiliMapsActivity::class.java))
+
         }
     }
 

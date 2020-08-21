@@ -1,10 +1,13 @@
 package com.example.fadhilicarpool
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.directions.route.Route
@@ -14,8 +17,7 @@ import com.firebase.geofire.GeoFire
 import com.firebase.geofire.GeoLocation
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,14 +27,24 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_driver_map.*
+import kotlinx.android.synthetic.main.activity_driver_map.goBack
+import kotlinx.android.synthetic.main.activity_passenger_map.*
 import java.util.*
 
 open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
 
+    // connect to authentication and realtime database
+    lateinit var driverOffer : DatabaseReference
+    lateinit var fadhiliUsers : DatabaseReference
+    var myAuth = FirebaseAuth.getInstance()
+
     private lateinit var map: GoogleMap
+
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+    lateinit var userLocation: Location
 
     //    PERMISSION REQUEST VARIABLE FOR CURRENT LOCATION
     private val REQUEST_LOCATION_PERMISSION = 1
@@ -51,17 +63,16 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
             startActivity(Intent(this, MainActivity:: class.java))
             finish()
         }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        offerRide.setOnClickListener{
+            getLocation()
+            offerRide.text = "Searching for a Passenger"
+        }
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
@@ -118,6 +129,23 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
     //    ENABLE LOCATION TRACKING
     private fun enableMyLocation(){
         if (isPermissionGranted()){
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
             map.isMyLocationEnabled = true
         } else{
             ActivityCompat.requestPermissions(
@@ -139,4 +167,84 @@ open class DriverMapActivity : AppCompatActivity(), OnMapReadyCallback{
             }
         }
     }
+
+    private fun getLocation() {
+        var locationRequest = LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 5000 // 5 seconds
+        locationRequest.fastestInterval = 2000 // 2 seconds
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback,
+            Looper.myLooper())
+
+
+
+    }
+
+    private val locationCallback = object : com.google.android.gms.location.LocationCallback(){
+        override fun onLocationResult(locationResult: LocationResult) {
+            userLocation = locationResult.lastLocation
+//            updateUIWithLocation(userLocation)
+            saveLocation(userLocation)
+        }
+    }
+
+    private fun saveLocation(location: Location){
+
+        // create child for storage of the location
+        driverOffer = FirebaseDatabase.getInstance().getReference("Driver Offer")
+        //        target database with data
+        val user = myAuth.currentUser
+        val uid = user!!.uid
+
+        var driverLat = location.latitude.toString()
+        var driverLong = location.longitude.toString()
+
+        driverOffer.child(uid).child("Latitude").setValue(driverLat)
+        driverOffer.child(uid).child("Longitude").setValue(driverLong)
+
+
+        val userPosition = LatLng(userLocation.latitude, userLocation.longitude)
+
+        fadhiliUsers = FirebaseDatabase.getInstance().getReference("Users")
+
+        fadhiliUsers.child(uid).child("Name").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // import user name and display it
+                val result = snapshot.value.toString()
+                map.addMarker(
+                    MarkerOptions()
+                        .position(userPosition)
+                        .title("$result - Driver")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+                )
+            }
+
+        })
+
+    }
+
 }
